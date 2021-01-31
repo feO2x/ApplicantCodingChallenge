@@ -1,0 +1,29 @@
+﻿using System;
+using FluentAssertions;
+using Hahn.ApplicationProcess.December2020.Tests.TestHelpers;
+using Microsoft.AspNetCore.Mvc;
+using Xunit;
+
+namespace Hahn.ApplicationProcess.December2020.Tests
+{
+    public abstract class WebApiControllerTests<T>
+    {
+        protected WebApiControllerTests(string expectedRoute) => ExpectedRoute = expectedRoute;
+
+        protected static Type ControllerType { get; } = typeof(T);
+
+        protected string ExpectedRoute { get; }
+
+        [Fact]
+        public void MustDeriveFromControllerBase() =>
+            ControllerType.Should().BeDerivedFrom<ControllerBase>();
+
+        [Fact]
+        public void MustBeDecoratedWithApiControllerAttribute() =>
+            ControllerType.Should().BeDecoratedWith<ApiControllerAttribute>();
+
+        [Fact]
+        public void MustHaveTheProperRouteApplied() =>
+            ControllerType.MustBeDecoratedWithRouteAttribute(ExpectedRoute);
+    }
+}

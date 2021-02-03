@@ -3,4 +3,6 @@ obj
 .vs
 .vscode
 *.user
-node_modules
+node_modules0
+appsettings.*.json
+*.log

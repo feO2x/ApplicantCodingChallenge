@@ -37,7 +37,7 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
         {
             public GetApplicantsSessionMock(int numberOfApplicants)
             {
-                Applicants = Applicant.GenerateFakeData(numberOfApplicants);
+                Applicants = ApplicantFactory.GenerateFakeData(numberOfApplicants);
             }
 
             public List<Applicant> Applicants { get; }

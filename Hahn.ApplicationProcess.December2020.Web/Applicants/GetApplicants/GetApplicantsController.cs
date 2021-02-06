@@ -16,6 +16,8 @@ namespace Hahn.ApplicationProcess.December2020.Web.Applicants.GetApplicants
         public GetApplicantsController(Func<IGetApplicantsSession> createSession) => _createSession = createSession;
 
         [HttpGet]
+        [ProducesResponseType(typeof(List<Applicant>), 200)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<List<Applicant>>> GetApplicants([FromQuery] PageDto pageDto)
         {
             await using var session = _createSession();

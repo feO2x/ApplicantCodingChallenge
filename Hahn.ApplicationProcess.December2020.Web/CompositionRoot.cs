@@ -1,4 +1,3 @@
-using FluentValidation.AspNetCore;
 using Hahn.ApplicationProcess.December2020.Web.Applicants;
 using Hahn.ApplicationProcess.December2020.Web.Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -20,10 +19,9 @@ namespace Hahn.ApplicationProcess.December2020.Web
         {
             services.AddMvc()
                     .AddControllersAsServices()
-                    .AddFluentValidation(
-                         configuration => configuration.RegisterValidatorsFromAssemblyContaining<CompositionRoot>(lifetime: ServiceLifetime.Singleton)
-                     );
-            services.AddDataAccess(Configuration)
+                    .AddFluentValidation();
+            services.AddSwagger()
+                    .AddDataAccess(Configuration)
                     .AddApplicantsModule();
         }
 
@@ -32,9 +30,10 @@ namespace Hahn.ApplicationProcess.December2020.Web
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UseSerilogRequestLogging();
-            app.UseRouting();
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseSerilogRequestLogging()
+               .UseRouting()
+               .UseSwaggerAndSwaggerUi()
+               .UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }

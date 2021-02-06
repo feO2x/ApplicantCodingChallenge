@@ -5,7 +5,7 @@ using Hahn.ApplicationProcess.December2020.Domain;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace Hahn.ApplicationProcess.December2020.Tests
+namespace Hahn.ApplicationProcess.December2020.Tests.Data
 {
     public static class InMemoryDatabaseIntegrationTests
     {

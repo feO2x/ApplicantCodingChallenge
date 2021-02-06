@@ -2,7 +2,7 @@ using FluentAssertions;
 using Hahn.ApplicationProcess.December2020.Domain;
 using Xunit;
 
-namespace Hahn.ApplicationProcess.December2020.Tests
+namespace Hahn.ApplicationProcess.December2020.Tests.Domain
 {
     public static class EntityTests
     {

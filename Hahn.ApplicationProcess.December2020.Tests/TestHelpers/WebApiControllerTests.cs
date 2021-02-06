@@ -1,10 +1,9 @@
 ﻿using System;
 using FluentAssertions;
-using Hahn.ApplicationProcess.December2020.Tests.TestHelpers;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
-namespace Hahn.ApplicationProcess.December2020.Tests
+namespace Hahn.ApplicationProcess.December2020.Tests.TestHelpers
 {
     public abstract class WebApiControllerTests<T>
     {

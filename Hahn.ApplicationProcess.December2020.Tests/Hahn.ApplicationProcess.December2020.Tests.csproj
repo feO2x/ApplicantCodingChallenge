@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
+        <ProjectReference Include="..\Hahn.ApplicationProcess.December2020.Web\Hahn.ApplicationProcess.December2020.Web.csproj" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="FluentAssertions" Version="5.10.3" />
@@ -7,8 +8,5 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\Hahn.ApplicationProcess.December2020.Web\Hahn.ApplicationProcess.December2020.Web.csproj" />
     </ItemGroup>
 </Project>

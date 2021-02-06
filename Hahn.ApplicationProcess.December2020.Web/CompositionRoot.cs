@@ -20,7 +20,9 @@ namespace Hahn.ApplicationProcess.December2020.Web
         {
             services.AddMvc()
                     .AddControllersAsServices()
-                    .AddFluentValidation();
+                    .AddFluentValidation(
+                         configuration => configuration.RegisterValidatorsFromAssemblyContaining<CompositionRoot>(lifetime: ServiceLifetime.Singleton)
+                     );
             services.AddDataAccess(Configuration)
                     .AddApplicantsModule();
         }

@@ -5,6 +5,7 @@ using FluentAssertions;
 using Hahn.ApplicationProcess.December2020.Domain;
 using Hahn.ApplicationProcess.December2020.Tests.TestHelpers;
 using Hahn.ApplicationProcess.December2020.Web.Applicants.GetApplicants;
+using Hahn.ApplicationProcess.December2020.Web.Paging;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
@@ -27,10 +28,11 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
             var session = new GetApplicantsSessionMock(100);
             var controller = new GetApplicantsController(() => session);
 
-            var actionResult = await controller.GetApplicants(skip, take);
+            var actionResult = await controller.GetApplicants(new PageDto { Skip = skip, Take = take });
 
             var expectedApplicants = session.Applicants.Skip(skip).Take(take).ToList();
             actionResult.Value.Should().Equal(expectedApplicants);
+            session.MustHaveBeenDisposed();
         }
 
         private sealed class GetApplicantsSessionMock : BaseReadOnlySessionMock<GetApplicantsSessionMock>, IGetApplicantsSession

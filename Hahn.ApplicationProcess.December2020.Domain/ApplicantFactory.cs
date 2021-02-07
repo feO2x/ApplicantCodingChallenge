@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Faker;
 using Light.GuardClauses;
 
 namespace Hahn.ApplicationProcess.December2020.Domain
@@ -15,18 +16,19 @@ namespace Hahn.ApplicationProcess.December2020.Domain
             var applicants = new List<Applicant>(numberOfApplicants);
             for (var i = 0; i < numberOfApplicants; i++)
             {
-                var firstName = Faker.Name.First();
-                var lastName = Faker.Name.Last();
+                var firstName = Name.First();
+                var lastName = Name.Last();
                 var fullName = $"{firstName} {lastName}";
                 var applicant = new Applicant
                 {
                     Id = i + 1,
                     FirstName = firstName,
                     LastName = lastName,
-                    Address = $"{Faker.Address.StreetAddress()}, {Faker.Address.ZipCode()} {Faker.Address.Country()}",
-                    EmailAddress = Faker.Internet.Email(fullName),
-                    CountryOfOrigin = Faker.Country.Name(),
-                    IsHired = Faker.Boolean.Random()
+                    DateOfBirth = DateOfBirth.CreateRandom(),
+                    Address = $"{Address.StreetAddress()}, {Address.ZipCode()} {Address.Country()}",
+                    EmailAddress = Internet.Email(fullName),
+                    CountryOfOrigin = Country.Name(),
+                    IsHired = Boolean.Random()
                 };
                 applicants.Add(applicant);
             }

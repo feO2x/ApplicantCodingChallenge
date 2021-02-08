@@ -26,7 +26,7 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
         public static async Task ReturnApplicantsOnValidRequest(int skip, int take)
         {
             var session = new GetApplicantsSessionMock(100);
-            var controller = new GetApplicantsController(() => session);
+            var controller = new GetApplicantsController(new PageDtoValidator(), () => session);
 
             var actionResult = await controller.GetApplicants(new PageDto { Skip = skip, Take = take });
 

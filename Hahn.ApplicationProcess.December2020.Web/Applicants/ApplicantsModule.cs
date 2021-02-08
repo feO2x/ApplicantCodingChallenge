@@ -1,5 +1,6 @@
 ﻿using Hahn.ApplicationProcess.December2020.Data;
 using Hahn.ApplicationProcess.December2020.Domain;
+using Hahn.ApplicationProcess.December2020.Web.Applicants.DeleteApplicant;
 using Hahn.ApplicationProcess.December2020.Web.Applicants.GetApplicant;
 using Hahn.ApplicationProcess.December2020.Web.Applicants.GetApplicants;
 using Hahn.ApplicationProcess.December2020.Web.Applicants.NewApplicant;
@@ -16,6 +17,7 @@ namespace Hahn.ApplicationProcess.December2020.Web.Applicants
                     .AddSingleton<NewApplicantDtoValidator>()
                     .AddTransient<INewApplicantSession, EfNewApplicantSession>()
                     .AddTransient<IGetApplicantSession, EfGetApplicantSession>()
-                    .AddTransient<IUpdateApplicantSession, EfUpdateApplicantSession>();
+                    .AddTransient<IUpdateApplicantSession, EfUpdateApplicantSession>()
+                    .AddTransient<IDeleteApplicantSession, EfDeleteApplicantSession>();
     }
 }

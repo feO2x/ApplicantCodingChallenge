@@ -87,5 +87,18 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Data
 
             (await act.Should().ThrowAsync<DbUpdateConcurrencyException>()).Which.ShouldBeWrittenTo(Output);
         }
+
+        [Fact]
+        public async Task DeleteNonExistingApplicant()
+        {
+            await using var context = new DatabaseContext(Options);
+            var nonExistingApplicant = new Applicant { Id = 942818 };
+            context.Remove(nonExistingApplicant);
+
+            // ReSharper disable once AccessToDisposedClosure -- the delegate is called before context is disposed
+            Func<Task> act = () => context.SaveChangesAsync();
+
+            (await act.Should().ThrowAsync<DbUpdateConcurrencyException>()).Which.ShouldBeWrittenTo(Output);
+        }
     }
 }

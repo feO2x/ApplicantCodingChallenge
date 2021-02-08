@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
 using Hahn.ApplicationProcess.December2020.Domain;
+using Hahn.ApplicationProcess.December2020.Tests.Domain;
 using Hahn.ApplicationProcess.December2020.Tests.TestHelpers;
 using Hahn.ApplicationProcess.December2020.Web.Applicants.NewApplicant;
 using Microsoft.AspNetCore.Mvc;
@@ -96,19 +96,6 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
                 EmailAddress = "john.doe@gmail.com"
             };
 
-        private sealed class CountryNameValidatorStub : ICountryNameValidator
-        {
-            public bool IsValidCountry { get; set; } = true;
-
-            public bool ThrowException { get; set; }
-
-            public Task<bool> CheckIfCountryNameIsValidAsync(string countryName, CancellationToken cancellationToken)
-            {
-                if (ThrowException)
-                    throw new Exception("An exception occurred while validating the country");
-                return Task.FromResult(IsValidCountry);
-            }
-        }
 
         private sealed class NewApplicantSessionMock : BaseSessionMock<NewApplicantSessionMock>, INewApplicantSession
         {

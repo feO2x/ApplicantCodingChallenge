@@ -1,5 +1,6 @@
 using Hahn.ApplicationProcess.December2020.Web.Applicants;
 using Hahn.ApplicationProcess.December2020.Web.Infrastructure;
+using Hahn.ApplicationProcess.December2020.Web.Paging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,11 +19,12 @@ namespace Hahn.ApplicationProcess.December2020.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                    .AddControllersAsServices()
-                    .AddFluentValidation();
+                    .AddControllersAsServices();
             services.AddSwagger()
                     .AddDataAccess(Configuration)
-                    .AddApplicantsModule();
+                    .AddPaging()
+                    .AddApplicantsModule()
+                    .AddAutoMapper(typeof(CompositionRoot));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hahn.ApplicationProcess.December2020.Domain;
+using Hahn.ApplicationProcess.December2020.Web.Infrastructure;
 using Hahn.ApplicationProcess.December2020.Web.Paging;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,16 +12,26 @@ namespace Hahn.ApplicationProcess.December2020.Web.Applicants.GetApplicants
     [Route("api/applicants")]
     public sealed class GetApplicantsController : ControllerBase
     {
-        private readonly Func<IGetApplicantsSession> _createSession;
+        public GetApplicantsController(PageDtoValidator validator, Func<IGetApplicantsSession> createSession)
+        {
+            Validator = validator;
+            CreateSession = createSession;
+        }
 
-        public GetApplicantsController(Func<IGetApplicantsSession> createSession) => _createSession = createSession;
+        private PageDtoValidator Validator { get; }
+
+        private Func<IGetApplicantsSession> CreateSession { get; }
+
 
         [HttpGet]
         [ProducesResponseType(typeof(List<Applicant>), 200)]
         [ProducesResponseType(500)]
         public async Task<ActionResult<List<Applicant>>> GetApplicants([FromQuery] PageDto pageDto)
         {
-            await using var session = _createSession();
+            if (this.CheckForErrors(pageDto, Validator, out var badRequestResult))
+                return badRequestResult;
+
+            await using var session = CreateSession();
             var applicants = await session.GetApplicantsAsync(pageDto.Skip, pageDto.Take, pageDto.SearchTerm);
             return applicants;
         }

@@ -24,5 +24,8 @@ namespace Hahn.ApplicationProcess.December2020.Tests.TestHelpers
         [Fact]
         public void MustHaveTheProperRouteApplied() =>
             ControllerType.MustBeDecoratedWithRouteAttribute(ExpectedRoute);
+
+        [Fact]
+        public void MustBeSealed() => ControllerType.Should().BeSealed();
     }
 }

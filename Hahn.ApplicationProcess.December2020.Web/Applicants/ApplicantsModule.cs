@@ -3,6 +3,7 @@ using Hahn.ApplicationProcess.December2020.Domain;
 using Hahn.ApplicationProcess.December2020.Web.Applicants.GetApplicant;
 using Hahn.ApplicationProcess.December2020.Web.Applicants.GetApplicants;
 using Hahn.ApplicationProcess.December2020.Web.Applicants.NewApplicant;
+using Hahn.ApplicationProcess.December2020.Web.Applicants.UpdateApplicant;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hahn.ApplicationProcess.December2020.Web.Applicants
@@ -14,6 +15,7 @@ namespace Hahn.ApplicationProcess.December2020.Web.Applicants
                     .AddSingleton<ICountryNameValidator, HttpCountryNameValidator>()
                     .AddSingleton<NewApplicantDtoValidator>()
                     .AddTransient<INewApplicantSession, EfNewApplicantSession>()
-                    .AddTransient<IGetApplicantSession, EfGetApplicantSession>();
+                    .AddTransient<IGetApplicantSession, EfGetApplicantSession>()
+                    .AddTransient<IUpdateApplicantSession, EfUpdateApplicantSession>();
     }
 }

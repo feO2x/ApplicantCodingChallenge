@@ -24,7 +24,7 @@ namespace Hahn.ApplicationProcess.December2020.Web.Applicants.NewApplicant
         }
 
         private NewApplicantDtoValidator Validator { get; }
-        public Func<INewApplicantSession> CreateSession { get; }
+        private Func<INewApplicantSession> CreateSession { get; }
         private IMapper Mapper { get; }
         private ILogger<NewApplicantController> Logger { get; }
 

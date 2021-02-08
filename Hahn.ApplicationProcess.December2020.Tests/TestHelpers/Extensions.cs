@@ -3,11 +3,12 @@ using System.Reflection;
 using FluentAssertions;
 using Light.GuardClauses;
 using Microsoft.AspNetCore.Mvc;
+using Xunit.Abstractions;
 using Xunit.Sdk;
 
 namespace Hahn.ApplicationProcess.December2020.Tests.TestHelpers
 {
-    public static class AssertionExtensions
+    public static class Extensions
     {
         public static void MustBeDecoratedWithRouteAttribute(this Type controllerType, string expectedRoute)
         {
@@ -22,5 +23,8 @@ namespace Hahn.ApplicationProcess.December2020.Tests.TestHelpers
             var resultDetails = actualResult.MustBeOfType<ObjectResult>().Value.MustBeOfType<ValidationProblemDetails>();
             resultDetails.Should().BeEquivalentTo(expectedResult.MustBeOfType<ObjectResult>().Value.MustBeOfType<ValidationProblemDetails>());
         }
+
+        public static void ShouldBeWrittenTo(this Exception exception, ITestOutputHelper output) =>
+            output.WriteLine(exception.ToString());
     }
 }

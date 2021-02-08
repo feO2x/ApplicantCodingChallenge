@@ -14,7 +14,10 @@ namespace Hahn.ApplicationProcess.December2020.Web.Infrastructure
     {
         public static ServiceContainer Instance { get; } = new(ContainerOptions.Default.WithMicrosoftSettings());
 
-        public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDomainModule(this IServiceCollection services) =>
+            services.AddSingleton<ApplicantValidator>();
+
+        public static IServiceCollection AddDataAccessModule(this IServiceCollection services, IConfiguration configuration)
         {
             var numberOfApplicants = configuration.GetValue("numberOfApplicants", 100);
             var allowedRange = ApplicantFactory.NumberOfApplicantsRange;

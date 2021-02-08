@@ -9,7 +9,7 @@ namespace Hahn.ApplicationProcess.December2020.Tests.TestHelpers
     {
         public int SaveChangesAsyncCallCount { get; private set; }
 
-        public Task SaveChangesAsync()
+        public virtual Task SaveChangesAsync()
         {
             SaveChangesAsyncCallCount++;
             return Task.CompletedTask;

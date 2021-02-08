@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hahn.ApplicationProcess.December2020.Web.Applicants.GetApplicants
 {
-    public sealed class EfGetApplicantsSession : ReadOnlySession, IGetApplicantsSession
+    public sealed class EfGetApplicantsSession : EfReadOnlySession, IGetApplicantsSession
     {
         public EfGetApplicantsSession(DatabaseContext context) : base(context) { }
 

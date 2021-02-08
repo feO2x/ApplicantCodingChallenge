@@ -8,7 +8,6 @@ using Hahn.ApplicationProcess.December2020.Tests.TestHelpers;
 using Hahn.ApplicationProcess.December2020.Web.Applicants.NewApplicant;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Serilog;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -19,15 +18,12 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
         public NewApplicantControllerTests(ITestOutputHelper output) : base("api/applicants/new")
         {
             CountryNameValidator = new CountryNameValidatorStub();
-            var serilogLogger = output.CreateTestLogger();
-            var loggerFactory = LoggerFactory.Create(builder => builder.AddSerilog(serilogLogger));
-            var validatorLogger = loggerFactory.CreateLogger<NewApplicantDtoValidator>();
-            var validator = new NewApplicantDtoValidator(CountryNameValidator, validatorLogger);
+            var loggerFactory = output.CreateLoggerFactory();
+            var validator = new NewApplicantDtoValidator(CountryNameValidator, loggerFactory.CreateLogger<NewApplicantDtoValidator>());
             Session = new NewApplicantSessionMock();
             SessionFactory = new FactorySpy<NewApplicantSessionMock>(Session);
             Mapper = new Mapper(new MapperConfiguration(expression => expression.AddProfile(new NewApplicantAutoMapperProfile())));
-            var controllerLogger = loggerFactory.CreateLogger<NewApplicantController>();
-            Controller = new NewApplicantController(validator, SessionFactory.GetInstance, Mapper, controllerLogger);
+            Controller = new NewApplicantController(validator, SessionFactory.GetInstance, Mapper, loggerFactory.CreateLogger<NewApplicantController>());
         }
 
         private NewApplicantController Controller { get; }

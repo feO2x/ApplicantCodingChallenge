@@ -21,8 +21,9 @@ namespace Hahn.ApplicationProcess.December2020.Web
             services.AddMvc()
                     .AddControllersAsServices();
             services.AddSwagger()
-                    .AddDataAccess(Configuration)
-                    .AddPaging()
+                    .AddDomainModule()
+                    .AddDataAccessModule(Configuration)
+                    .AddPagingModule()
                     .AddApplicantsModule()
                     .AddAutoMapper(typeof(CompositionRoot));
         }

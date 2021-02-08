@@ -3,11 +3,10 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using FluentValidation.TestHelper;
 using Hahn.ApplicationProcess.December2020.Domain;
+using Hahn.ApplicationProcess.December2020.Tests.TestHelpers;
 using Microsoft.Extensions.Logging;
-using Serilog;
 using Xunit;
 using Xunit.Abstractions;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Hahn.ApplicationProcess.December2020.Tests.Domain
 {
@@ -15,8 +14,7 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Domain
     {
         public BaseApplicantValidatorTests(ITestOutputHelper output)
         {
-            var serilogLogger = output.CreateTestLogger();
-            var logger = LoggerFactory.Create(builder => builder.AddSerilog(serilogLogger)).CreateLogger<ApplicantValidatorDummy>();
+            var logger = output.CreateLoggerFactory().CreateLogger<ApplicantValidatorDummy>();
             CountryNameValidator = new CountryNameValidatorStub();
             Validator = new ApplicantValidatorDummy(CountryNameValidator, logger);
         }

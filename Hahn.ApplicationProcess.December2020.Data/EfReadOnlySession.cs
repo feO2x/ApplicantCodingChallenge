@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace Hahn.ApplicationProcess.December2020.Data
 {
-    public abstract class ReadOnlySession : IAsyncDisposable
+    public abstract class EfReadOnlySession : IAsyncDisposable
     {
-        protected ReadOnlySession(DatabaseContext context) => Context = context;
+        protected EfReadOnlySession(DatabaseContext context) => Context = context;
 
         protected DatabaseContext Context { get; }
 

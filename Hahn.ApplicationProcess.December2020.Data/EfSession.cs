@@ -2,9 +2,9 @@
 
 namespace Hahn.ApplicationProcess.December2020.Data
 {
-    public abstract class Session : ReadOnlySession, ISession
+    public abstract class EfSession : EfReadOnlySession, ISession
     {
-        protected Session(DatabaseContext context) : base(context) { }
+        protected EfSession(DatabaseContext context) : base(context) { }
 
         public Task SaveChangesAsync() => Context.SaveChangesAsync();
     }

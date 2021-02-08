@@ -20,5 +20,11 @@ namespace Hahn.ApplicationProcess.December2020.Tests.TestHelpers
             SaveChangesAsyncCallCount.Should().Be(1);
             return (T) this;
         }
+
+        public T SaveChangesMustNotHaveBeenCalled()
+        {
+            SaveChangesAsyncCallCount.Should().Be(0);
+            return (T) this;
+        }
     }
 }

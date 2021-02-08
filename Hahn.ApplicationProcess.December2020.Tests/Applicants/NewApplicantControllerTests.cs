@@ -24,9 +24,10 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
             var validatorLogger = loggerFactory.CreateLogger<NewApplicantDtoValidator>();
             var validator = new NewApplicantDtoValidator(CountryNameValidator, validatorLogger);
             Session = new NewApplicantSessionMock();
+            SessionFactory = new FactorySpy<NewApplicantSessionMock>(Session);
             Mapper = new Mapper(new MapperConfiguration(expression => expression.AddProfile(new NewApplicantAutoMapperProfile())));
             var controllerLogger = loggerFactory.CreateLogger<NewApplicantController>();
-            Controller = new NewApplicantController(validator, () => Session, Mapper, controllerLogger);
+            Controller = new NewApplicantController(validator, SessionFactory.GetInstance, Mapper, controllerLogger);
         }
 
         private NewApplicantController Controller { get; }
@@ -34,6 +35,8 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
         private CountryNameValidatorStub CountryNameValidator { get; }
 
         private NewApplicantSessionMock Session { get; }
+
+        private FactorySpy<NewApplicantSessionMock> SessionFactory { get; }
 
         private IMapper Mapper { get; }
 
@@ -69,8 +72,7 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
 
             var result = await Controller.CreateNewApplicant(dto);
 
-            var expectedResult = Controller.ValidationProblem();
-            result.MustBeEquivalentToValidationProblem(expectedResult);
+            CheckForValidationError(result);
         }
 
         [Fact]
@@ -81,8 +83,15 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
 
             var result = await Controller.CreateNewApplicant(dto);
 
+            CheckForValidationError(result);
+        }
+
+        private void CheckForValidationError(IActionResult result)
+        {
             var expectedResult = Controller.ValidationProblem();
             result.MustBeEquivalentToValidationProblem(expectedResult);
+            SessionFactory.InstanceMustNotHaveBeenCreated();
+            Session.SaveChangesMustNotHaveBeenCalled();
         }
 
         private static NewApplicantDto CreateDto() =>

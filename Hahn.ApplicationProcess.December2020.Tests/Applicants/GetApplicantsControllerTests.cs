@@ -23,6 +23,7 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
         [InlineData(0, 20)]
         [InlineData(20, 30)]
         [InlineData(90, 25)]
+        [InlineData(110, 25)]
         public static async Task ReturnApplicantsOnValidRequest(int skip, int take)
         {
             var session = new GetApplicantsSessionMock(100);
@@ -31,7 +32,8 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
             var actionResult = await controller.GetApplicants(new PageDto { Skip = skip, Take = take });
 
             var expectedApplicants = session.Applicants.Skip(skip).Take(take).ToList();
-            actionResult.Value.Should().Equal(expectedApplicants);
+            var expectedResult = new ApplicantsPageDto(100, expectedApplicants);
+            actionResult.Value.Should().BeEquivalentTo(expectedResult);
             session.MustHaveBeenDisposed();
         }
 
@@ -43,6 +45,9 @@ namespace Hahn.ApplicationProcess.December2020.Tests.Applicants
             }
 
             public List<Applicant> Applicants { get; }
+
+            public Task<int> GetTotalNumberOfApplicantsAsync(string? searchTerm) =>
+                Task.FromResult(Applicants.Count);
 
             public Task<List<Applicant>> GetApplicantsAsync(int skip, int take, string? searchTerm) =>
                 Task.FromResult(Applicants.Skip(skip).Take(take).ToList());

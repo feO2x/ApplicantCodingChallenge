@@ -26,14 +26,19 @@ namespace Hahn.ApplicationProcess.December2020.Web.Applicants.GetApplicants
         [HttpGet]
         [ProducesResponseType(typeof(List<Applicant>), 200)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<List<Applicant>>> GetApplicants([FromQuery] PageDto pageDto)
+        public async Task<ActionResult<ApplicantsPageDto>> GetApplicants([FromQuery] PageDto pageDto)
         {
             if (this.CheckForErrors(pageDto, Validator, out var badRequestResult))
                 return badRequestResult;
 
             await using var session = CreateSession();
-            var applicants = await session.GetApplicantsAsync(pageDto.Skip, pageDto.Take, pageDto.SearchTerm);
-            return applicants;
+            var totalNumberOfApplicants = await session.GetTotalNumberOfApplicantsAsync(pageDto.SearchTerm);
+            List<Applicant> applicants;
+            if (totalNumberOfApplicants > pageDto.Skip)
+                applicants = await session.GetApplicantsAsync(pageDto.Skip, pageDto.Take, pageDto.SearchTerm);
+            else
+                applicants = new List<Applicant>(0);
+            return new ApplicantsPageDto(totalNumberOfApplicants, applicants);
         }
     }
 }

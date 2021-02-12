@@ -1,7 +1,6 @@
 using Hahn.ApplicationProcess.December2020.Web.Applicants;
 using Hahn.ApplicationProcess.December2020.Web.Infrastructure;
 using Hahn.ApplicationProcess.December2020.Web.Paging;
-using Light.GuardClauses;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,19 +36,12 @@ namespace Hahn.ApplicationProcess.December2020.Web
                 services.AddCors();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (Environment.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-
-                var allowedCorsOrigins = Configuration.GetSection("allowedCorsOrigins").Get<string[]>();
-                if (!allowedCorsOrigins.IsNullOrEmpty())
-                {
-                    app.UseCors(builder => builder.WithOrigins(allowedCorsOrigins)
-                                                  .AllowAnyHeader()
-                                                  .AllowAnyMethod());
-                }
+                app.UseDeveloperExceptionPage()
+                   .UseCorsIfNecessary(Configuration);
             }
 
             app.UseSerilogRequestLogging()

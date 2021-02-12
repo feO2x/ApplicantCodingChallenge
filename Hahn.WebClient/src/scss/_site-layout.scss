@@ -1,0 +1,55 @@
+@use './colors';
+
+%flex-container {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+%take-remaining-space {
+    flex: 1 1 0;
+}
+
+%take-viewport-space {
+    height: 100vh;
+    width: 100vw;
+}
+
+$max-content-width: 1000px;
+
+.site-layout {
+    @extend %flex-container;
+    @extend %take-viewport-space;
+}
+
+.dynamic-flex {
+    @extend %flex-container;
+    @extend %take-remaining-space;
+}
+
+.centered-container {
+    align-self: center;
+    width: 100%;
+    max-width: $max-content-width;
+}
+
+.vertically-scrollable {
+    overflow-y: auto;
+}
+
+body {
+    @extend %take-viewport-space;
+    margin: 0;
+    overflow: hidden;
+    background-color: colors.$background-color;
+    color: colors.$foreground-color;
+}
+
+footer {
+    flex-basis: 32px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: colors.$footer-background-color;
+    font-size: 8pt;
+}

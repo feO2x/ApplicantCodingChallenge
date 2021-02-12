@@ -1,0 +1,13 @@
+<template>
+    <require from="./styles.scss"></require>
+    <require from="./header/header"></require>
+    <require from="./footer/footer-view"></require>
+
+    <header></header>
+    <main class="dynamic-flex">
+        <router-view class="dynamic-flex"></router-view>
+    </main>
+    <footer>
+        <footer-view></footer-view>
+    </footer>
+</template>

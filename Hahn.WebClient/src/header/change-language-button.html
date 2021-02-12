@@ -1,0 +1,24 @@
+<template>
+    <require from="./change-language-button.scss"></require>
+
+    <div mdc-menu-surface-anchor
+         ref="localesMenuAnchor">
+        <button mdc-button
+                unelevated
+                click.trigger="localesMenu.open = !localesMenu.open">
+            <mdc-icon>language</mdc-icon>
+            <span>${currentLocale.name}</span>
+        </button>
+        <mdc-menu view-model.ref="localesMenu"
+                  mdcmenu:selected.trigger="onMenuItemSelected($event.detail.data)"
+                  anchor.bind="localesMenuAnchor"
+                  anchor-corner="BOTTOM_LEFT"
+                  class="change-language-menu">
+            <mdc-list>
+                <template repeat.for="locale of allLocales">
+                    <mdc-list-item value.bind="locale.languageCode">${locale.name}</mdc-list-item>
+                </template>
+            </mdc-list>
+        </mdc-menu>
+    </div>
+</template>

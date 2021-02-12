@@ -1,0 +1,9 @@
+@use '@material/list';
+@use '../../scss/colors';
+
+.applicants-list {
+    @include list.item-primary-text-ink-color(colors.$secondary-color);
+    @include list.item-graphic-ink-color(colors.$foreground-color);
+    @include list.item-graphic-fill-color(colors.$secondary-color);
+}
+

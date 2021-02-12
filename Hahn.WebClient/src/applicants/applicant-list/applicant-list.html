@@ -1,0 +1,24 @@
+<template>
+    <require from="./applicant-list.scss"></require>
+
+    <div class="centered-container">
+        <h1 t="applicants">Applicants</h1>
+    </div>
+    <div class="dynamic-flex vertically-scrollable"
+         scroll.trigger="loadNextItems($event.target)">
+        <div class="centered-container">
+            <mdc-list if.bind="applicants"
+                      class="applicants-list"
+                      avatar
+                      two-line>
+                <mdc-list-item repeat.for="applicant of applicants">
+                    <mdc-icon mdc-list-item-graphic>person</mdc-icon>
+                    <mdc-list-item-primary-text>${applicant.firstName} ${applicant.lastName}
+                    </mdc-list-item-primary-text>
+                    <mdc-list-item-secondary-text>${applicant.emailAddress}</mdc-list-item-secondary-text>
+                    <span></span>
+                </mdc-list-item>
+            </mdc-list>
+        </div>
+    </div>
+</template>

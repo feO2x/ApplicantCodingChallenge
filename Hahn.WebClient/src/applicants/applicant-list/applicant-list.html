@@ -11,12 +11,20 @@
                       two-line>
                 <mdc-list-item repeat.for="applicant of applicants">
                     <mdc-icon mdc-list-item-graphic>person</mdc-icon>
-                    <mdc-list-item-primary-text>${applicant.firstName} ${applicant.lastName}
+                    <mdc-list-item-primary-text>
+                        ${applicant.firstName} ${applicant.lastName}
                     </mdc-list-item-primary-text>
                     <mdc-list-item-secondary-text>${applicant.emailAddress}</mdc-list-item-secondary-text>
                     <span></span>
                 </mdc-list-item>
+
             </mdc-list>
+            <div if.bind="!applicants"
+                 class="dynamic-flex flex-align-content-center">
+                <mdc-circular-progress size="100"
+                                       stroke-width="10">
+                </mdc-circular-progress>
+            </div>
         </div>
     </div>
 </template>

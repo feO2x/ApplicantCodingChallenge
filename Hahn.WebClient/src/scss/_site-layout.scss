@@ -26,6 +26,11 @@ $max-content-width: 1000px;
     @extend %take-remaining-space;
 }
 
+.flex-align-content-center {
+    align-items: center;
+    justify-content: center;
+}
+
 .vertically-scrollable {
     overflow-y: auto;
 }

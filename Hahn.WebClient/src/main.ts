@@ -3,6 +3,7 @@ import * as environment from '../config/environment.json';
 import { PLATFORM } from 'aurelia-pal';
 import { configureAureliaI18n } from './locales/configure-aurelia-i18n';
 import { registerApplicantsModule } from 'applicants/applicants-module';
+import { registerHttpClientModule } from 'http-client/http-client-module';
 
 export function configure(aurelia: Aurelia): void {
     aurelia.use
@@ -15,6 +16,7 @@ export function configure(aurelia: Aurelia): void {
         aurelia.use.plugin(PLATFORM.moduleName('aurelia-testing'));
     }
 
+    registerHttpClientModule(aurelia.container, environment.baseUrl);
     registerApplicantsModule(aurelia.container);
 
     aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));

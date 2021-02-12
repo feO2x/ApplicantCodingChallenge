@@ -7,6 +7,7 @@
         "aurelia-animator-css": "^1.0.4",
         "aurelia-bootstrapper": "^2.3.3",
         "aurelia-i18n": "^3.1.4",
+        "axios": "^0.21.1",
         "faker": "^5.4.0",
         "i18next-xhr-backend": "^3.2.2"
     },

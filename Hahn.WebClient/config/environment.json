@@ -1,4 +1,5 @@
 {
-  "debug": true,
-  "testing": true
+    "debug": true,
+    "testing": true,
+    "baseUrl": "http://localhost:5000"
 }

@@ -26,14 +26,12 @@ namespace Hahn.ApplicationProcess.December2020.Web
             services.AddMvc()
                     .AddControllersAsServices();
             services.AddSwagger()
+                    .AddCorsIfNecessary(Environment)
                     .AddDomainModule()
                     .AddDataAccessModule(Configuration)
                     .AddPagingModule()
                     .AddApplicantsModule()
                     .AddAutoMapper(typeof(CompositionRoot));
-
-            if (Environment.IsDevelopment())
-                services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app)

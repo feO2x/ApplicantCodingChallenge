@@ -1,12 +1,10 @@
 <template>
     <require from="./applicant-list.scss"></require>
 
-    <div class="centered-container">
-        <h1 t="applicants">Applicants</h1>
-    </div>
-    <div class="dynamic-flex vertically-scrollable"
-         scroll.trigger="loadNextItems($event.target)">
-        <div class="centered-container">
+    <h1 t="applicants">Applicants</h1>
+    <div class="dynamic-flex list-container">
+        <div class="dynamic-flex vertically-scrollable"
+             scroll.trigger="loadNextItems($event.target)">
             <mdc-list if.bind="applicants"
                       class="applicants-list"
                       avatar

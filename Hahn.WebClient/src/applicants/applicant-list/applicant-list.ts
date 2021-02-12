@@ -18,7 +18,7 @@ export class ApplicantList {
 
     loadNextItems(element: { scrollHeight: number, offsetHeight: number, scrollTop: number }): void {
         
-        if (this.currentPromise || element.offsetHeight + element.scrollTop < element.scrollHeight)
+        if (!this.applicants || this.currentPromise || element.offsetHeight + element.scrollTop < element.scrollHeight)
             return;
 
         this.loadNextItemsInternal();

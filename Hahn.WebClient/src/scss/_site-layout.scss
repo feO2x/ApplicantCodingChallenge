@@ -26,12 +26,6 @@ $max-content-width: 1000px;
     @extend %take-remaining-space;
 }
 
-.centered-container {
-    align-self: center;
-    width: 100%;
-    max-width: $max-content-width;
-}
-
 .vertically-scrollable {
     overflow-y: auto;
 }
@@ -44,12 +38,20 @@ body {
     color: colors.$foreground-color;
 }
 
+main {
+    @extend %flex-container;
+    @extend %take-remaining-space;
+    align-self: center;
+    width: 100%;
+    max-width: $max-content-width;
+}
+
 footer {
     flex-basis: 32px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    background-color: colors.$footer-background-color;
+    background-color: colors.$darker-background-color;
     font-size: 8pt;
 }

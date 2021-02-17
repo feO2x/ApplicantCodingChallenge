@@ -8,7 +8,6 @@ export class ChangeLanguageButton {
     currentLocale: LocaleOption;
 
     constructor(private readonly i18n: I18N) {
-        console.log(i18n.i18next.languages);
         this.updateCurrentLocale(i18n.getLocale());
     }
 

@@ -15,8 +15,13 @@ export class App {
             },
             {
                 route: 'applicants/:id',
-                name: 'applicant-detail',
-                moduleId: PLATFORM.moduleName('./applicants/applicant-detail/applicant-detail')
+                name: 'edit-applicant',
+                moduleId: PLATFORM.moduleName('./applicants/applicant-detail/edit-applicant')
+            },
+            {
+                route: 'applicants/new',
+                name: 'new-applicant',
+                moduleId: PLATFORM.moduleName('./applicants/applicant-detail/new-applicant')
             }
         ]);
     }

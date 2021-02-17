@@ -1,8 +1,19 @@
+@use '../scss/colors';
+
 .header {
 
     position: initial;
+    border-bottom: 1px solid colors.$lighter-primary-color;
 
     .header-row {
         display: flex;
+    }
+}
+
+.header-title {
+    color: colors.$foreground-color;
+
+    &:visited {
+        color: colors.$foreground-color;
     }
 }

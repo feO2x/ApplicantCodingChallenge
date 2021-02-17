@@ -1,0 +1,9 @@
+<template>
+    <require from="./applicant-form"></require>
+    <require from="components/wait-spinner"></require>
+
+    <form if.bind="applicant">
+        <applicant-form applicant.one-time="applicant"></applicant-form>
+    </form>
+    <wait-spinner else></wait-spinner>
+</template>

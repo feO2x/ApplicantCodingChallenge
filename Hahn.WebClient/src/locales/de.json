@@ -3,5 +3,14 @@
     "applicant-detail": "Bewerberdetails",
     "created-with-love-first-part": "Mit",
     "created-with-love-second-part": "erstellt von",
-    "search": "Suchen"
+    "search": "Suchen",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "dateOfBirth": "Geburtsdatum",
+    "address": "Adresse",
+    "countryOfOrigin": "Geburtsland",
+    "emailAddress": "Emailadresse",
+    "isHired": "Eingestellt",
+    "save": "Speichern",
+    "newApplicant": "Neuen Bewerber hinzufügen"
 }

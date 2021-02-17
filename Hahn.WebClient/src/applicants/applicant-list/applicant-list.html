@@ -1,5 +1,6 @@
 <template>
     <require from="./applicant-list.scss"></require>
+    <reuqire from="components/wait-spinner"></reuqire>
 
     <h3 if.bind="totalNumberOfApplicants">
         <span>${totalNumberOfApplicants} </span>
@@ -21,19 +22,14 @@
                                mdclistitem:action.delegate="onItemSelected(applicant.id)">
                     <mdc-icon mdc-list-item-graphic>person</mdc-icon>
                     <mdc-list-item-primary-text>
-                        <a route-href="route: applicant-detail; params.bind: {id:applicant.id}">
+                        <a route-href="route: edit-applicant; params.bind: {id:applicant.id}">
                             ${applicant.firstName} ${applicant.lastName}
                         </a>
                     </mdc-list-item-primary-text>
                     <mdc-list-item-secondary-text>${applicant.emailAddress}</mdc-list-item-secondary-text>
                 </mdc-list-item>
             </mdc-list>
-            <div else
-                 class="dynamic-flex flex-align-content-center">
-                <mdc-circular-progress size="100"
-                                       stroke-width="10">
-                </mdc-circular-progress>
-            </div>
+            <wait-spinner else></wait-spinner>
         </div>
     </div>
 </template>

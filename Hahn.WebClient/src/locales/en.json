@@ -3,5 +3,14 @@
     "applicant-detail": "Applicant Details",
     "created-with-love-first-part": "Created with",
     "created-with-love-second-part": "by",
-    "search": "Search"
+    "search": "Search",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "dateOfBirth": "Date of Birth",
+    "address": "Address",
+    "countryOfOrigin": "Country of Origin",
+    "emailAddress": "Email",
+    "isHired": "Is Hired",
+    "save": "Save",
+    "newApplicant": "Add New Applicant"
 }

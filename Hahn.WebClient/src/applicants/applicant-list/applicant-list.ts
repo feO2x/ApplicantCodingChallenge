@@ -42,6 +42,6 @@ export class ApplicantList {
     }
 
     onItemSelected(applicantId: number): void {
-        this.router.navigateToRoute('applicant-detail', { id: applicantId });
+        this.router.navigateToRoute('edit-applicant', { id: applicantId });
     }
 }

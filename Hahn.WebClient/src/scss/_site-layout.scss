@@ -16,6 +16,10 @@
 
 $max-content-width: 1000px;
 
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
 .site-layout {
     @extend %flex-container;
     @extend %take-viewport-space;
@@ -49,6 +53,23 @@ main {
     align-self: center;
     width: 100%;
     max-width: $max-content-width;
+}
+
+form {
+    @extend %flex-container;
+    background-color: colors.$lighter-background-color;
+    border: 1px solid colors.$border-color;
+    margin-top: 20px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.form-field-container {
+    @extend %flex-container;
+
+    & > * {
+        margin-bottom: 20px;
+    }
 }
 
 footer {

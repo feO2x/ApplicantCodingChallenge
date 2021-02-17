@@ -24,7 +24,8 @@ namespace Hahn.ApplicationProcess.December2020.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                    .AddControllersAsServices();
+                    .AddControllersAsServices()
+                    .AddJsonOptions();
             services.AddSwagger()
                     .AddCorsIfNecessary(Environment)
                     .AddDomainModule()

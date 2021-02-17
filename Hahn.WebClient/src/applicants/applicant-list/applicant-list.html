@@ -1,7 +1,14 @@
 <template>
     <require from="./applicant-list.scss"></require>
 
-    <h1 t="applicants">Applicants</h1>
+    <h3 if.bind="totalNumberOfApplicants">
+        <span>${totalNumberOfApplicants} </span>
+        <span t="applicants">Applicants</span>
+    </h3>
+    <div>
+        <mdc-text-field t="[label]search">
+        </mdc-text-field>
+    </div>
     <div class="dynamic-flex list-container">
         <div class="dynamic-flex vertically-scrollable"
              scroll.trigger="loadNextItems($event.target)">
@@ -9,17 +16,19 @@
                       class="applicants-list"
                       avatar
                       two-line>
-                <mdc-list-item repeat.for="applicant of applicants">
+                <mdc-list-item repeat.for="applicant of applicants"
+                               no-list-action
+                               mdclistitem:action.delegate="onItemSelected(applicant.id)">
                     <mdc-icon mdc-list-item-graphic>person</mdc-icon>
                     <mdc-list-item-primary-text>
-                        ${applicant.firstName} ${applicant.lastName}
+                        <a route-href="route: applicant-detail; params.bind: {id:applicant.id}">
+                            ${applicant.firstName} ${applicant.lastName}
+                        </a>
                     </mdc-list-item-primary-text>
                     <mdc-list-item-secondary-text>${applicant.emailAddress}</mdc-list-item-secondary-text>
-                    <span></span>
                 </mdc-list-item>
-
             </mdc-list>
-            <div if.bind="!applicants"
+            <div else
                  class="dynamic-flex flex-align-content-center">
                 <mdc-circular-progress size="100"
                                        stroke-width="10">

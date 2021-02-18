@@ -2,11 +2,14 @@ import { Applicant } from "applicants/applicant";
 import { ApplicantsSession } from "./applicants-session";
 import { bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
+import { MdcSnackbarService } from '@aurelia-mdc-web/snackbar';
+import { I18N } from 'aurelia-i18n';
+import { ApplicantsPageDto } from "./applicants-page-dto";
 
 const numberOfApplicantsPerCall = 30;
 let requestCounter = 1;
 
-@inject(ApplicantsSession, Router)
+@inject(ApplicantsSession, Router, MdcSnackbarService, I18N)
 export class ApplicantList {
 
     private currentRequestId: number | null = null;
@@ -18,7 +21,9 @@ export class ApplicantList {
 
     constructor(
         private readonly session: ApplicantsSession,
-        private readonly router: Router
+        private readonly router: Router,
+        private readonly snackbarService: MdcSnackbarService,
+        private readonly i18n: I18N
     ) { }
 
     created(): void {
@@ -41,7 +46,14 @@ export class ApplicantList {
 
         const requestId = requestCounter++;
         this.currentRequestId = requestId;
-        const pageDto = await this.session.getApplicants(skip, numberOfApplicantsPerCall, this.searchTerm);
+        let pageDto: ApplicantsPageDto;
+        try {
+            pageDto = await this.session.getApplicants(skip, numberOfApplicantsPerCall, this.searchTerm);
+        }
+        catch {
+            this.snackbarService.open(this.i18n.tr('service-call-error'));
+            return;
+        }
 
         // If another request has been made while we awaited the results, then we do not update.
         if (this.currentRequestId === null || requestId !== this.currentRequestId)

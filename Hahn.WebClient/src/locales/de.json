@@ -12,5 +12,6 @@
     "emailAddress": "Emailadresse",
     "isHired": "Eingestellt",
     "save": "Speichern",
-    "newApplicant": "Neuen Bewerber hinzufügen"
+    "newApplicant": "Neuen Bewerber hinzufügen",
+    "service-call-error": "Der Webserver konnte nicht erfolgreich kontaktiert werden, bitte laden Sie die Seite neu"
 }

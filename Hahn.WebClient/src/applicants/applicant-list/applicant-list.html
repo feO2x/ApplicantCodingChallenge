@@ -1,7 +1,7 @@
 <template>
     <require from="./applicant-list.scss"></require>
     <require from="./applicant-list-command-bar"></require>
-    <reuqire from="components/wait-spinner"></reuqire>
+    <reuqire from="./wait-spinner"></reuqire>
 
     <h3 if.bind="totalNumberOfApplicants">
         <span>${totalNumberOfApplicants} </span>
@@ -9,6 +9,7 @@
     </h3>
     <applicant-list-command-bar is-command-bar-visible.bind="!!applicants"
                                 search-term.from-view="searchTerm"></applicant-list-command-bar>
+
     <div class="dynamic-flex list-container">
         <div class="dynamic-flex vertically-scrollable"
              scroll.trigger="loadNextItems($event.target)">
@@ -28,7 +29,13 @@
                     <mdc-list-item-secondary-text>${applicant.emailAddress}</mdc-list-item-secondary-text>
                 </mdc-list-item>
             </mdc-list>
-            <wait-spinner else></wait-spinner>
+
+            <div else
+                 class="dynamic-flex flex-align-content-center">
+                <mdc-circular-progress size="100"
+                                       stroke-width="10">
+                </mdc-circular-progress>
+            </div>
         </div>
     </div>
 </template>

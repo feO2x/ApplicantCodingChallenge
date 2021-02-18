@@ -12,5 +12,6 @@
     "emailAddress": "Email",
     "isHired": "Is Hired",
     "save": "Save",
-    "newApplicant": "Add New Applicant"
+    "newApplicant": "Add New Applicant",
+    "service-call-error": "We could not connect to the web server, please reload the page"
 }

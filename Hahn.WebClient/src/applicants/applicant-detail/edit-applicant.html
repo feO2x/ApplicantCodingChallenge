@@ -1,9 +1,15 @@
 <template>
     <require from="./applicant-form"></require>
-    <require from="components/wait-spinner"></require>
 
     <form if.bind="applicant">
         <applicant-form applicant.one-time="applicant"></applicant-form>
     </form>
-    <wait-spinner else></wait-spinner>
+
+    <div else
+         class="dynamic-flex flex-align-content-center">
+        <mdc-circular-progress size="100"
+                               stroke-width="10">
+        </mdc-circular-progress>
+    </div>
+
 </template>

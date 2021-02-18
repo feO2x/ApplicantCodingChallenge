@@ -1,47 +1,70 @@
 import { Applicant } from "applicants/applicant";
 import { ApplicantsSession } from "./applicants-session";
-import { inject } from 'aurelia-framework';
-import { ApplicantsPageDto } from "./applicants-page-dto";
+import { bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 
 const numberOfApplicantsPerCall = 30;
+let requestCounter = 1;
 
 @inject(ApplicantsSession, Router)
 export class ApplicantList {
-    
-    private currentPromise: Promise<ApplicantsPageDto> | null = null;
+
+    private currentRequestId: number | null = null;
+    private scrollElement: HTMLElement | null = null;
     applicants: Applicant[] | null = null;
     totalNumberOfApplicants: number | null = null;
+    @bindable
+    searchTerm = "";
 
     constructor(
         private readonly session: ApplicantsSession,
         private readonly router: Router
     ) { }
 
-    async created(): Promise<void> {
-        const pageDto = await this.session.getApplicants(0, numberOfApplicantsPerCall);
-        this.applicants = pageDto.applicants;
-        this.totalNumberOfApplicants = pageDto.totalNumberOfApplicants;
+    created(): void {
+        this.loadApplicantsInternal(false);
     }
 
-    loadNextItems(element: { scrollHeight: number, offsetHeight: number, scrollTop: number }): void {
-        
-        if (!this.applicants || this.currentPromise || element.offsetHeight + element.scrollTop < element.scrollHeight)
+    loadNextItems(element: HTMLElement): void {
+
+        this.scrollElement = element;
+        if (!this.applicants || this.currentRequestId || element.offsetHeight + element.scrollTop < element.scrollHeight)
             return;
 
-        this.loadNextItemsInternal();
+        this.loadApplicantsInternal(true);
     }
 
-    private async loadNextItemsInternal(): Promise<void> {
-        this.currentPromise = this.session.getApplicants(this.applicants.length, numberOfApplicantsPerCall);
-        const pageDto = await this.currentPromise;
-        if (pageDto.applicants && pageDto.applicants.length > 0)
+    private async loadApplicantsInternal(isAppending: boolean): Promise<void> {
+        let skip = 0;
+        if (isAppending && this.applicants)
+            skip = this.applicants.length;
+
+        const requestId = requestCounter++;
+        this.currentRequestId = requestId;
+        const pageDto = await this.session.getApplicants(skip, numberOfApplicantsPerCall, this.searchTerm);
+
+        // If another request has been made while we awaited the results, then we do not update.
+        if (this.currentRequestId === null || requestId !== this.currentRequestId)
+            return;
+
+        if (isAppending)
             this.applicants = this.applicants.concat(pageDto.applicants);
+        else
+            this.applicants = pageDto.applicants;
+
         this.totalNumberOfApplicants = pageDto.totalNumberOfApplicants;
-        this.currentPromise = null;
+        this.currentRequestId = null;
+        if (!isAppending && this.scrollElement)
+            this.scrollElement.scrollTop = 0;
     }
 
     onItemSelected(applicantId: number): void {
         this.router.navigateToRoute('edit-applicant', { id: applicantId });
+    }
+
+    searchTermChanged(): void {
+        if (this.searchTerm)
+            this.searchTerm = this.searchTerm.trim();
+        this.loadApplicantsInternal(false)
     }
 }

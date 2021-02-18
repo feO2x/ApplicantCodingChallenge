@@ -1,15 +1,14 @@
 <template>
     <require from="./applicant-list.scss"></require>
+    <require from="./applicant-list-command-bar"></require>
     <reuqire from="components/wait-spinner"></reuqire>
 
     <h3 if.bind="totalNumberOfApplicants">
         <span>${totalNumberOfApplicants} </span>
         <span t="applicants">Applicants</span>
     </h3>
-    <div>
-        <mdc-text-field t="[label]search">
-        </mdc-text-field>
-    </div>
+    <applicant-list-command-bar is-command-bar-visible.bind="!!applicants"
+                                search-term.from-view="searchTerm"></applicant-list-command-bar>
     <div class="dynamic-flex list-container">
         <div class="dynamic-flex vertically-scrollable"
              scroll.trigger="loadNextItems($event.target)">

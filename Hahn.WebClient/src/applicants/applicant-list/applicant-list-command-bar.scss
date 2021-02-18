@@ -1,0 +1,16 @@
+@use '@material/button';
+@use 'scss/colors';
+
+.command-bar-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .command-bar-button {
+        @include button.filled-accessible(colors.$secondary-color);
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

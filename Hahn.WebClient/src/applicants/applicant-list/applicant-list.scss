@@ -2,10 +2,16 @@
 @use '../../scss/colors';
 
 .applicants-list {
-    @include list.ripple-states(white);
-    @include list.item-primary-text-ink-color(colors.$secondary-color);
+    @include list.ripple-states(colors.$foreground-color);
     @include list.item-graphic-ink-color(colors.$foreground-color);
     @include list.item-graphic-fill-color(colors.$secondary-color);
+
+    a {
+        color: colors.$lighter-secondary-color;
+        &:visited {
+            color: colors.$lighter-secondary-color;
+        }
+    }
 }
 
 .list-container {

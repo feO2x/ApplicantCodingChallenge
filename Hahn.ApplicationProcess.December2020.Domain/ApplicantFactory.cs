@@ -22,15 +22,16 @@ namespace Hahn.ApplicationProcess.December2020.Domain
                 var firstName = Name.First();
                 var lastName = Name.Last();
                 var fullName = $"{firstName} {lastName}";
+                var country = Country.Name();
                 var applicant = new Applicant
                 {
                     Id = i + 1,
                     FirstName = firstName,
                     LastName = lastName,
                     DateOfBirth = DateOfBirth.CreateRandom(),
-                    Address = $"{Address.StreetAddress()},{Environment.NewLine}{Address.ZipCode()} {Address.Country()}",
+                    Address = $"{Address.StreetAddress()},{Environment.NewLine}{Address.ZipCode()} {Address.City()},{Environment.NewLine}{country}",
                     EmailAddress = Internet.Email(fullName),
-                    CountryOfOrigin = Country.Name(),
+                    CountryOfOrigin = Boolean.Random() ? Country.Name() : country,
                     IsHired = Boolean.Random()
                 };
                 applicants.Add(applicant);

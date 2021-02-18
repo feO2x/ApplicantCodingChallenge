@@ -4,7 +4,6 @@ import { bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { MdcSnackbarService } from '@aurelia-mdc-web/snackbar';
 import { I18N } from 'aurelia-i18n';
-import { ApplicantsPageDto } from "./applicants-page-dto";
 
 const numberOfApplicantsPerCall = 30;
 let requestCounter = 1;
@@ -12,12 +11,12 @@ let requestCounter = 1;
 @inject(ApplicantsSession, Router, MdcSnackbarService, I18N)
 export class ApplicantList {
 
-    private currentRequestId: number | null = null;
+    private currentRequestId = 0;
     private scrollElement: HTMLElement | null = null;
     applicants: Applicant[] | null = null;
-    totalNumberOfApplicants: number | null = null;
-    @bindable
-    searchTerm = "";
+    totalNumberOfApplicants = 0;
+    @bindable searchTerm = "";
+    isLoading = false;
 
     constructor(
         private readonly session: ApplicantsSession,
@@ -33,7 +32,7 @@ export class ApplicantList {
     loadNextItems(element: HTMLElement): void {
 
         this.scrollElement = element;
-        if (!this.applicants || this.currentRequestId || element.offsetHeight + element.scrollTop < element.scrollHeight)
+        if (!this.applicants || this.isLoading || element.offsetHeight + element.scrollTop < element.scrollHeight)
             return;
 
         this.loadApplicantsInternal(true);
@@ -46,28 +45,36 @@ export class ApplicantList {
 
         const requestId = requestCounter++;
         this.currentRequestId = requestId;
-        let pageDto: ApplicantsPageDto;
+        this.isLoading = true;
         try {
-            pageDto = await this.session.getApplicants(skip, numberOfApplicantsPerCall, this.searchTerm);
+            const pageDto = await this.session.getApplicants(skip, numberOfApplicantsPerCall, this.searchTerm);
+
+            // If another request has been made while we awaited the results, then we do not update.
+            // The most prominent scenario is when the user changed the search term while a
+            // request is ongoing.
+            if (requestId !== this.currentRequestId)
+                return;
+
+            if (isAppending)
+                this.applicants = this.applicants.concat(pageDto.applicants);
+            else
+                this.applicants = pageDto.applicants;
+
+            this.totalNumberOfApplicants = pageDto.totalNumberOfApplicants;
+            this.isLoading = false;
+            if (!isAppending && this.scrollElement)
+                this.scrollElement.scrollTop = 0;
         }
         catch {
+            if (this.currentRequestId !== requestId)
+                return;
+
             this.snackbarService.open(this.i18n.tr('service-call-error'));
+            this.applicants = [];
+            this.totalNumberOfApplicants = 0;
+            this.isLoading = false;
             return;
         }
-
-        // If another request has been made while we awaited the results, then we do not update.
-        if (this.currentRequestId === null || requestId !== this.currentRequestId)
-            return;
-
-        if (isAppending)
-            this.applicants = this.applicants.concat(pageDto.applicants);
-        else
-            this.applicants = pageDto.applicants;
-
-        this.totalNumberOfApplicants = pageDto.totalNumberOfApplicants;
-        this.currentRequestId = null;
-        if (!isAppending && this.scrollElement)
-            this.scrollElement.scrollTop = 0;
     }
 
     onItemSelected(applicantId: number): void {

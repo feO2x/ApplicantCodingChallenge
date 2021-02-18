@@ -3,16 +3,20 @@
     <require from="./applicant-list-command-bar"></require>
     <reuqire from="./wait-spinner"></reuqire>
 
-    <h3 if.bind="totalNumberOfApplicants">
+    <h3>
         <span>${totalNumberOfApplicants} </span>
         <span t="applicants">Applicants</span>
     </h3>
-    <applicant-list-command-bar is-command-bar-visible.bind="!!applicants"
-                                search-term.from-view="searchTerm"></applicant-list-command-bar>
-
+    <applicant-list-command-bar search-term.from-view="searchTerm"></applicant-list-command-bar>
     <div class="dynamic-flex list-container">
         <div class="dynamic-flex vertically-scrollable"
              scroll.trigger="loadNextItems($event.target)">
+             <div if.bind="isLoading"
+                 class="dynamic-flex flex-align-content-center">
+                <mdc-circular-progress size="100"
+                                       stroke-width="10">
+                </mdc-circular-progress>
+            </div>
             <mdc-list if.bind="applicants"
                       class="applicants-list"
                       avatar
@@ -29,13 +33,6 @@
                     <mdc-list-item-secondary-text>${applicant.emailAddress}</mdc-list-item-secondary-text>
                 </mdc-list-item>
             </mdc-list>
-
-            <div else
-                 class="dynamic-flex flex-align-content-center">
-                <mdc-circular-progress size="100"
-                                       stroke-width="10">
-                </mdc-circular-progress>
-            </div>
         </div>
     </div>
 </template>

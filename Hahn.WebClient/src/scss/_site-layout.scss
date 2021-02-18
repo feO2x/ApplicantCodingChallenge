@@ -57,9 +57,10 @@ main {
 
 form {
     @extend %flex-container;
+    @extend %take-remaining-space;
     background-color: colors.$lighter-background-color;
     border: 1px solid colors.$border-color;
-    margin-top: 20px;
+    margin: 20px 0;
     padding: 20px;
     overflow-y: auto;
 }

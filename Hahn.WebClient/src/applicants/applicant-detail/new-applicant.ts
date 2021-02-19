@@ -24,12 +24,12 @@ export class NewApplicant {
     }
 
     async saveApplicant(): Promise<void> {
-
-        const applicant = this.applicant;
+        
         const validationResult = await this.validationController.validate();
         if (!validationResult.valid)
             return;
 
+        const applicant = this.applicant;
         try {
             const createResult = await this.session.createNewApplicant(applicant);
             // Check if any errors were reported that need to be added to the validation controller

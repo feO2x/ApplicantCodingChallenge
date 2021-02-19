@@ -1,8 +1,42 @@
 <template>
     <require from="./applicant-form"></require>
+    <require from="./edit-applicant.scss"></require>
 
-    <form if.bind="applicant">
-        <applicant-form applicant.one-time="applicant"></applicant-form>
+    <form if.bind="applicant"
+          submit.trigger="save()">
+        <h3>
+            <span t="editApplicant">Edit Applicant</span>
+            <span> ${applicant.id}</span>
+        </h3>
+        <applicant-form applicant.to-view="applicant"></applicant-form>
+        <div class="horizontal-flex button-row">
+            <button type="button"
+                    mdc-button
+                    raised
+                    class="caution-button">
+                <mdc-icon>delete</mdc-icon>
+                <span t="delete">Delete</span>
+            </button>
+
+            <div>
+                <button type="button"
+                        mdc-button
+                        raised
+                        class="secondary-button"
+                        disabled.to-view="isResetFormDisabled"
+                        click.trigger="resetForm()">
+                    <mdc-icon>undo</mdc-icon>
+                    <span t="resetForm">Reset</span>
+                </button>
+                <button type="submit"
+                        mdc-button
+                        raised>
+                    <mdc-icon>save</mdc-icon>
+                    <span t="save">Save</span>
+                </button>
+            </button>
+            </div>
+        </div>
     </form>
 
     <div else

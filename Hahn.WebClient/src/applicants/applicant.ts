@@ -19,7 +19,6 @@ export const applicantDateRangeRuleName = 'applicantDateRange';
 ValidationRules.customRule(
     applicantDateRangeRuleName,
     (value: string, _obj): boolean => {
-        console.warn(value);
         const date = new Date(value);
         if (isNaN(date.getTime()))
             return false;
@@ -51,4 +50,23 @@ export function createEmptyApplicant(): ApplicantProperties {
         emailAddress: null,
         isHired: false
     };
+}
+
+export function checkForStructuralEquality(x: ApplicantProperties, y: ApplicantProperties): boolean {
+    if (x.firstName !== y.firstName)
+        return false;
+    if (x.lastName !== y.lastName)
+        return false;
+    if (x.dateOfBirth !== y.dateOfBirth)
+        return false;
+    if (x.emailAddress !== y.emailAddress)
+        return false;
+    if (x.isHired !== y.isHired)
+        return false;
+    if (x.countryOfOrigin !== y.countryOfOrigin)
+        return false;
+    if (x.address !== y.address)
+        return false;
+
+    return true;
 }

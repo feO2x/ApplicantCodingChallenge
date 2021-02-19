@@ -1,6 +1,4 @@
 @use './scss/colors';
-@use './scss/site-layout';
-@use './scss/links';
 
 @use '@material/theme' with (
     $primary: colors.$primary-color,
@@ -14,3 +12,6 @@
 );
 
 @use '@aurelia-mdc-web/all';
+@use './scss/site-layout';
+@use './scss/links';
+@use './scss/button';

@@ -15,7 +15,7 @@ Thumbs.db
 /src/environment.ts
 /dist
 /test/coverage-jest
-yarn.lock
+*.lock
 
 !.vscode/settings.json
 !.vscode/tasks.json

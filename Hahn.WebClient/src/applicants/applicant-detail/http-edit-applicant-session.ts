@@ -9,7 +9,7 @@ import { EditApplicantResult } from './edit-applicant-result';
 export class HttpEditApplicantSession implements EditApplicantSession {
 
     constructor(private readonly axios: AxiosInstance) { }
-
+    
     async getApplicant(id: number): Promise<Applicant> {
         const response = await this.axios.get<Applicant>('/api/applicants/' + id);
         return response.data;
@@ -31,8 +31,9 @@ export class HttpEditApplicantSession implements EditApplicantSession {
                     reject();
                 });
         })
-
-
     }
 
+    async deleteApplicant(id: number): Promise<void> {
+        await this.axios.delete('/api/applicants/delete/' + id);
+    }
 }

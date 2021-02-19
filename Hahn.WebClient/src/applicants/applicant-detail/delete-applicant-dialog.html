@@ -1,0 +1,22 @@
+<template>
+    <mdc-dialog-title t="deleteApplicant">Delete applicant</mdc-dialog-title>
+    <mdc-dialog-content>
+        ${question}
+    </mdc-dialog-content>
+    <mdc-dialog-actions>
+        <button mdc-button
+                data-mdc-dialog-action="cancel"
+                t="cancel">
+            Cancel
+        </button>
+        <button mdc-button
+                raised
+                class="caution-button"
+                data-mdc-dialog-action="delete"
+                data-mdc-dialog-button-default
+                data-mdc-dialog-initial-focus>
+            <mdc-icon>delete</mdc-icon>
+            <span t="delete">Delete</span>
+        </button>
+    </mdc-dialog-actions>
+</template>

@@ -4,8 +4,11 @@ import { Applicant, applicantValidationRules, checkForStructuralEquality } from 
 import { EditApplicantSession } from './edit-applicant-session';
 import { MdcSnackbarService } from '@aurelia-mdc-web/snackbar';
 import { I18N } from 'aurelia-i18n';
+import { MdcDialogService } from '@aurelia-mdc-web/dialog';
+import { DeleteApplicantDialog } from './delete-applicant-dialog';
+import { Router } from 'aurelia-router';
 
-@inject(ValidationControllerFactory, EditApplicantSession, MdcSnackbarService, I18N)
+@inject(ValidationControllerFactory, EditApplicantSession, MdcSnackbarService, I18N, MdcDialogService, Router)
 export class EditApplicant {
 
     private readonly validationController: ValidationController;
@@ -17,7 +20,9 @@ export class EditApplicant {
         validationControllerFactory: ValidationControllerFactory,
         private readonly session: EditApplicantSession,
         private readonly snackbarService: MdcSnackbarService,
-        private readonly i18n: I18N
+        private readonly i18n: I18N,
+        private readonly dialogService: MdcDialogService,
+        private readonly router: Router,
     ) {
         this.validationController = validationControllerFactory.createForCurrentScope();
         this.validationController.subscribe(event => this.onFieldValidated(event));
@@ -88,5 +93,20 @@ export class EditApplicant {
         this.applicant = { ...this.originalApplicant };
         this.validationController.addObject(this.applicant, applicantValidationRules);
         this.isResetFormDisabled = true;
+    }
+
+    async tryDelete(): Promise<void> {
+        const result = await this.dialogService.open({ viewModel: DeleteApplicantDialog, model: this.applicant });
+        if (result !== 'delete')
+            return;
+
+        try {
+            await this.session.deleteApplicant(this.applicant.id);
+            this.snackbarService.open(this.i18n.tr('applicantDeleted', this.applicant));
+            this.router.navigateToRoute('applicants');
+        }
+        catch {
+            this.snackbarService.open(this.i18n.tr('service-call-error'));
+        }
     }
 }

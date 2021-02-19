@@ -20,7 +20,7 @@
         "required": "Bitte geben Sie einen Wert an",
         "invalidFirstName": "Der Vorname muss mindestens zwei Buchstaben umfassen",
         "invalidLastName": "Der Nachname muss mindestens zwei Buchstaben umfassen",
-        "invalidDateOfBirth": "Das Geburtsdatum muss angegeben werden und nach dem 01.01.1900 liegen",
+        "invalidDateOfBirth": "Das Geburtsdatum muss angegeben werden und nach dem 01.01.1900 sowie vor dem heutigen Datum liegen",
         "invalidAddress": "Die Adresse muss mindestens 10 Zeichen lang sein",
         "invalidEmail": "Bitte geben Sie eine valide Email-Adresse an",
         "invalidCountry": "Bitte geben Sie einen korrekten Ländernamen an"

@@ -20,7 +20,7 @@
         "required": "Please provide a value",
         "invalidFirstName": "The first name must have at least two characters",
         "invalidLastName": "The last name must have at least two characters",
-        "invalidDateOfBirth": "The birth date is required and must be after 1900-01-01",
+        "invalidDateOfBirth": "The birth date is required and must be a value after 1900-01-01 and before today",
         "invalidAddress": "The address must have at least 10 characters",
         "invalidEmail": "Please provide a valid email address",
         "invalidCountry": "Please provide a valid country name"

@@ -1,24 +1,57 @@
 <template>
     <div class="form-field-container">
-        <mdc-text-field t="[label]firstName"
-                        value.two-way="applicant.firstName"></mdc-text-field>
-        <mdc-text-field t="[label]lastName"
-                        value.two-way="applicant.lastName"></mdc-text-field>
-        <mdc-text-field t="[label]dateOfBirth"
-                        type="date"
-                        value.two-way="applicant.dateOfBirth"></mdc-text-field>
-        <mdc-text-field t="[label]emailAddress"
-                        type="email"
-                        value.two-way="applicant.emailAddress"></mdc-text-field>
-        <mdc-text-field t="[label]address"
-                        textarea
-                        rows="3"
-                        value.two-way="applicant.address"></mdc-text-field>
-        <mdc-text-field t="[label]countryOfOrigin"
-                        value.two-way="applicant.countryOfOrigin"></mdc-text-field>
-        <mdc-form-field>
-            <mdc-checkbox checked.two-way="applicant.isHired"></mdc-checkbox>
-            <label t="isHired">Is Hired</label>
-        </mdc-form-field>
+        <div>
+            <mdc-text-field t="[label]firstName"
+                            value.two-way="applicant.firstName & validate"></mdc-text-field>
+            <mdc-text-field-helper-line>
+                <mdc-text-field-helper-text persistent></mdc-text-field-helper-text>
+            </mdc-text-field-helper-line>
+        </div>
+        <div>
+            <mdc-text-field t="[label]lastName"
+                            value.two-way="applicant.lastName & validate"></mdc-text-field>
+            <mdc-text-field-helper-line>
+                <mdc-text-field-helper-text persistent></mdc-text-field-helper-text>
+            </mdc-text-field-helper-line>
+        </div>
+        <div>
+            <mdc-text-field t="[label]dateOfBirth"
+                            type="date"
+                            value.two-way="applicant.dateOfBirth"></mdc-text-field>
+            <mdc-text-field-helper-line>
+                <mdc-text-field-helper-text persistent></mdc-text-field-helper-text>
+            </mdc-text-field-helper-line>
+        </div>
+        <div>
+            <mdc-text-field t="[label]emailAddress"
+                            type="email"
+                            value.two-way="applicant.emailAddress & validate"></mdc-text-field>
+            <mdc-text-field-helper-line>
+                <mdc-text-field-helper-text persistent></mdc-text-field-helper-text>
+            </mdc-text-field-helper-line>
+
+        </div>
+        <div>
+            <mdc-text-field t="[label]address"
+                            textarea
+                            rows="3"
+                            value.two-way="applicant.address & validate"></mdc-text-field>
+            <mdc-text-field-helper-line>
+                <mdc-text-field-helper-text persistent></mdc-text-field-helper-text>
+            </mdc-text-field-helper-line>
+        </div>
+        <div>
+            <mdc-text-field t="[label]countryOfOrigin"
+                            value.two-way="applicant.countryOfOrigin & validate"></mdc-text-field>
+            <mdc-text-field-helper-line>
+                <mdc-text-field-helper-text persistent></mdc-text-field-helper-text>
+            </mdc-text-field-helper-line>
+        </div>
+        <div>
+            <mdc-form-field>
+                <mdc-checkbox checked.two-way="applicant.isHired"></mdc-checkbox>
+                <label t="isHired">Is Hired</label>
+            </mdc-form-field>
+        </div>
     </div>
 </template>

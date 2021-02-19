@@ -13,5 +13,16 @@
     "isHired": "Eingestellt",
     "save": "Speichern",
     "newApplicant": "Neuen Bewerber hinzufügen",
-    "service-call-error": "Der Webserver konnte nicht erfolgreich kontaktiert werden, bitte laden Sie die Seite neu"
+    "service-call-error": "Der Webserver konnte nicht erfolgreich kontaktiert werden, bitte laden Sie die Seite neu",
+    "client-side-error": "Es ist ein unerwarteter Fehler im Web Client aufgetreten, bitte nehmen Sie Kontakt mit einem Administrator auf",
+    "newApplicantCreated": "Der Bewerber {{firstName}} {{lastName}} wurde erstellt.",
+    "errorMessages": {
+        "required": "Bitte geben Sie einen Wert an",
+        "invalidFirstName": "Der Vorname muss mindestens zwei Buchstaben umfassen",
+        "invalidLastName": "Der Nachname muss mindestens zwei Buchstaben umfassen",
+        "invalidDateOfBirth": "Das Geburtsdatum muss angegeben werden und nach dem 01.01.1900 liegen",
+        "invalidAddress": "Die Adresse muss mindestens 10 Zeichen lang sein",
+        "invalidEmail": "Bitte geben Sie eine valide Email-Adresse an",
+        "invalidCountry": "Bitte geben Sie einen korrekten Ländernamen an"
+    }
 }

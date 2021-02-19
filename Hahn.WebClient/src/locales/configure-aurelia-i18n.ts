@@ -1,6 +1,8 @@
+import { Container } from 'aurelia-dependency-injection';
 import { AureliaEnhancedI18Next, I18N, TCustomAttribute } from "aurelia-i18n";
 import i18nXhrBackend from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { ValidationMessageProvider } from 'aurelia-validation';
 
 const localStorageLanguageKey = 'language';
 
@@ -28,6 +30,22 @@ export function configureAureliaI18n(instance: I18N): Promise<AureliaEnhancedI18
         attributes: aliases,
         debug: true
     });
+}
+
+export function configureI18nValidationMessages(container: Container): void {
+    ValidationMessageProvider.prototype.getMessage = function (key: string) {
+        const i18n = container.get(I18N);
+        const translation = i18n.tr(`errorMessages.${key}`);
+        return this.parser.parse(translation);
+    };
+
+    ValidationMessageProvider.prototype.getDisplayName = function (propertyName: string, displayName: string) {
+        if (displayName !== null && displayName !== undefined)
+            return displayName;
+
+        const i18n = container.get(I18N);
+        return i18n.tr(propertyName);
+    }
 }
 
 function trySetInitialLanguage(): void {

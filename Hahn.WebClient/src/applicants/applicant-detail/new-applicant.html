@@ -1,8 +1,16 @@
 <template>
+    <require from="./new-applicant.scss"></require>
     <require from="./applicant-form"></require>
-    <form>
+    <form submit.trigger="saveApplicant()">
         <h3 t="newApplicant">New Applicant</h3>
-        <applicant-form></applicant-form>
-        
+        <applicant-form applicant.to-view="applicant"></applicant-form>
+        <div class="horizontal-flex button-row">
+            <button type="submit"
+                    mdc-button
+                    raised>
+                <mdc-icon>save</mdc-icon>
+                <span t="save">Save</span>
+            </button>
+        </div>
     </form>
 </template>

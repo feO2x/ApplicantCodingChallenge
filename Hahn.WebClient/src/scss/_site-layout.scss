@@ -1,8 +1,13 @@
 @use './colors';
 
-%flex-container {
+%vertical-flex-container {
     display: flex;
     flex-flow: column nowrap;
+}
+
+%horizontal-flex-container {
+    display: flex;
+    flex-flow: row nowrap;
 }
 
 %take-remaining-space {
@@ -21,12 +26,12 @@ $max-content-width: 1000px;
 }
 
 .site-layout {
-    @extend %flex-container;
+    @extend %vertical-flex-container;
     @extend %take-viewport-space;
 }
 
 .dynamic-flex {
-    @extend %flex-container;
+    @extend %vertical-flex-container;
     @extend %take-remaining-space;
 }
 
@@ -48,7 +53,7 @@ body {
 }
 
 main {
-    @extend %flex-container;
+    @extend %vertical-flex-container;
     @extend %take-remaining-space;
     align-self: center;
     width: 100%;
@@ -56,7 +61,7 @@ main {
 }
 
 form {
-    @extend %flex-container;
+    @extend %vertical-flex-container;
     @extend %take-remaining-space;
     background-color: colors.$lighter-background-color;
     border: 1px solid colors.$border-color;
@@ -66,11 +71,17 @@ form {
 }
 
 .form-field-container {
-    @extend %flex-container;
+    @extend %vertical-flex-container;
 
     & > * {
+        @extend %vertical-flex-container;
         margin-bottom: 20px;
+        align-self: stretch;
     }
+}
+
+.horizontal-flex {
+    @extend %horizontal-flex-container;
 }
 
 footer {

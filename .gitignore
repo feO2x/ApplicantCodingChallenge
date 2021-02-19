@@ -5,6 +5,7 @@ obj
 *.user
 node_modules
 appsettings.*.json
+testsettings.*.json
 *.log
 .DS_STORE
 Thumbs.db

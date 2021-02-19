@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Faker;
 using Light.GuardClauses;
 using Boolean = Faker.Boolean;
@@ -29,7 +28,7 @@ namespace Hahn.ApplicationProcess.December2020.Domain
                     FirstName = firstName,
                     LastName = lastName,
                     DateOfBirth = DateOfBirth.CreateRandom(),
-                    Address = $"{Address.StreetAddress()},{Environment.NewLine}{Address.ZipCode()} {Address.City()},{Environment.NewLine}{country}",
+                    Address = $"{Address.StreetAddress()},\n{Address.ZipCode()} {Address.City()},\n{country}",
                     EmailAddress = Internet.Email(fullName),
                     CountryOfOrigin = Boolean.Random() ? Country.Name() : country,
                     IsHired = Boolean.Random()

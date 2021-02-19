@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Hahn.ApplicationProcess.December2020.Domain;
+using Hahn.ApplicationProcess.December2020.Web.ErrorResponses;
 using Hahn.ApplicationProcess.December2020.Web.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -29,6 +30,9 @@ namespace Hahn.ApplicationProcess.December2020.Web.Applicants.NewApplicant
         private ILogger<NewApplicantController> Logger { get; }
 
         [HttpPost]
+        [ProducesResponseType(typeof(Applicant), 201)]
+        [ProducesResponseType(typeof(BadRequestResponse), 400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> CreateNewApplicant([FromBody] NewApplicantDto newApplicantDto)
         {
             var badRequestResult = await this.CheckForErrorsAsync(newApplicantDto, Validator);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Hahn.ApplicationProcess.December2020.Domain;
+using Hahn.ApplicationProcess.December2020.Web.ErrorResponses;
 using Hahn.ApplicationProcess.December2020.Web.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,10 @@ namespace Hahn.ApplicationProcess.December2020.Web.Applicants.UpdateApplicant
         private ILogger<UpdateApplicantController> Logger { get; }
 
         [HttpPut]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(typeof(BadRequestResponse), 400)]
+        [ProducesResponseType(typeof(NotFoundResponse), 404)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> UpdateApplicant([FromBody] Applicant applicant)
         {
             var badRequestResult = await this.CheckForErrorsAsync(applicant, Validator);

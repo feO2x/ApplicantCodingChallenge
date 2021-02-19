@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hahn.ApplicationProcess.December2020.Domain;
+using Hahn.ApplicationProcess.December2020.Web.ErrorResponses;
 using Hahn.ApplicationProcess.December2020.Web.Infrastructure;
 using Hahn.ApplicationProcess.December2020.Web.Paging;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,7 @@ namespace Hahn.ApplicationProcess.December2020.Web.Applicants.GetApplicants
 
         [HttpGet]
         [ProducesResponseType(typeof(List<Applicant>), 200)]
+        [ProducesResponseType(typeof(BadRequestResponse), 400)]
         [ProducesResponseType(500)]
         public async Task<ActionResult<ApplicantsPageDto>> GetApplicants([FromQuery] PageDto pageDto)
         {
